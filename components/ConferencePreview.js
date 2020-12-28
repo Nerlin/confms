@@ -1,6 +1,7 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import Date from "./Date";
 
 export default function ConferencePreview({ conference: { slug, name, date, shortDescription }}) {
   return (
@@ -11,9 +12,7 @@ export default function ConferencePreview({ conference: { slug, name, date, shor
         </h2>
       </Link>
       
-      <time className={"text-gray-500"} dateTime={date}>
-        {date}
-      </time>
+      <Date dateString={date} />
 
       <div className={"my-1 leading-normal"}>
         {shortDescription}

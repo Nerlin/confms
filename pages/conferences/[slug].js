@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Head from "next/head";
 import Link from "next/link";
 import ConferenceMembership from "../../components/ConferenceMembership";
+import Date from "../../components/Date";
 import Layout from "../../components/Layout";
 import { getConferenceBySlug, getConferences } from "../../data/conferences";
 
@@ -14,8 +15,9 @@ export default function ConferenceIndex({ conference }) {
       </Head>
 
       <section className={"my-10 flex items-start"}>
-        <article>
+        <article className={"mr-4"}>
           <h1 className={"text-4xl my-4 font-serif"}>{conference.name}</h1>
+          <Date dateString={conference.date} />
           {conference.shortDescription}
         </article>
 
