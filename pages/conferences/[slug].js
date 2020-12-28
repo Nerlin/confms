@@ -24,7 +24,7 @@ export default function ConferenceIndex({ conference }) {
 
       <Link href={"/"}>
         <a className={"text-blue-600"}>
-          <FontAwesomeIcon icon={faChevronLeft} className={"mr-4"} />
+          <FontAwesomeIcon icon={faChevronLeft} className={"inline-block mr-4 w-2"} />
           Назад к списку
         </a>
       </Link>
