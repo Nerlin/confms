@@ -16,7 +16,7 @@ export default function Header() {
             </Link>
           </li>
           <li>
-            <Link href={"/buy"}>
+            <Link href={"/register"}>
               <a className={"rounded-md px-4 py-2 text-white bg-green-600"}>Участвовать</a>
             </Link>
           </li>
