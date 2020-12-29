@@ -1,6 +1,6 @@
-export default function ButtonGroup({ children }) {
+export default function ButtonGroup({ direction = "row", children }) {
   return (
-    <div className={"flex flex-row space-x-1"}>
+    <div className={`flex flex-${direction} space-1`}>
       {children}
     </div>
   )

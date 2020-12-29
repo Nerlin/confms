@@ -8,8 +8,8 @@ import Link from "next/link"
 export default function Register() {
   return (
     <FormLayout>
-      <form className={"container mx-auto shadow p-8 rounded-md max-w-xl bg-white"}>
-        <h1 className={"font-serif text-3xl"}>Конф.ру - Зарегистрироваться</h1>
+      <form className={"container mx-auto shadow px-12 py-8 rounded-md max-w-md bg-white"}>
+        <h1 className={"font-serif text-3xl mb-8"}>Конф.ру - Зарегистрироваться</h1>
 
         <Label>
           Email
@@ -31,13 +31,11 @@ export default function Register() {
           <Input name={"lastName"} />
         </Label>
 
-        <ButtonGroup>
+        <ButtonGroup direction={"col"}>
           <Button kind={"attention"}>Зарегистрироваться</Button>
           
           <Link href={"/"}>
-            <a href={"/"}>
-              <Button kind={"default"}>Назад</Button>
-            </a>
+            <a className={"block text-sm text-center mt-3 mx-auto text-blue-600"} href={"/"}>Назад</a>
           </Link>
         </ButtonGroup>
       </form>
