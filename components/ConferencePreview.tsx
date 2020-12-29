@@ -2,10 +2,10 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import Date from "./Date";
-import { Conference } from "../types/Conference"
+import { IConference } from "../types/Conference"
 
 export interface ConferencePreviewProps {
-  conference: Conference
+  conference: IConference
 }
 
 export default function ConferencePreview({

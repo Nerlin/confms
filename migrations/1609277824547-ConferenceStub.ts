@@ -1,6 +1,24 @@
-import { Conference } from "../types/Conference";
+import { MigrationInterface, QueryRunner } from "typeorm";
+import { IConference } from "../types/Conference";
 
-const conferences: Conference[] = [
+export class ConferenceStub1609277824547 implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    const values = conferences
+      .map(({ id, slug, name, shortDescription, date }) => `(${id}, '${slug}', '${name}', '${shortDescription}', '${date}')`)
+      .join(", ");
+
+    await queryRunner.query(
+      `INSERT OR IGNORE INTO conference (id, slug, name, shortDescription, date) VALUES ${values}`
+    );
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    const values = conferences.map(conference => conference.id).join(', ');
+    await queryRunner.query(`DELETE FROM conference WHERE id IN (${values})`)
+  }
+}
+
+const conferences: IConference[] = [
   {
     "id": 1,
     "slug": "first-ru-conf",
@@ -16,12 +34,3 @@ const conferences: Conference[] = [
     "date": "05 мая, 2020"
   }
 ]
-
-export async function getConferences(): Promise<Conference[]> {
-  return conferences;
-}
-
-export async function getConferenceBySlug(slug: string): Promise<Conference> {
-  const conference = conferences.find(conference => conference.slug === slug);
-  return conference;
-}

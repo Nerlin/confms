@@ -1,4 +1,4 @@
-export interface Conference {
+export interface IConference {
   id: number;
   slug: string;
   name: string;

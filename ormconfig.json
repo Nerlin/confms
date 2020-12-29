@@ -1,0 +1,10 @@
+{
+  "type": "better-sqlite3",
+  "database": "database.sqlite",
+  "entities": [
+    "data/entities/**/*.ts"
+  ],
+  "migrations": [
+    "migrations/**/*.ts"
+  ]
+}

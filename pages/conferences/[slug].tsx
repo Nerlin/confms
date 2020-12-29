@@ -6,11 +6,12 @@ import Link from "next/link";
 import ConferenceMembership from "../../components/ConferenceMembership";
 import Date from "../../components/Date";
 import Layout from "../../components/Layout";
-import { getConferenceBySlug, getConferences } from "../../data/conferences";
-import { Conference } from "../../types/Conference";
+import { ensureConnection } from "../../data/Database";
+import { Conference } from "../../data/entities/Conferences";
+import { IConference } from "../../types/Conference";
 
 interface ConferenceIndexProps {
-  conference: Conference
+  conference: IConference
 }
 
 export default function ConferenceIndex({ conference }: ConferenceIndexProps) {
@@ -47,7 +48,9 @@ export default function ConferenceIndex({ conference }: ConferenceIndexProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const conferences = await getConferences()
+  const connection = await ensureConnection();
+  const repository = await connection.getRepository(Conference);
+  const conferences = await repository.find({ select: ["slug"] });
   return {
     paths: conferences.map(conference => {
       return {
@@ -58,11 +61,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<{ conference: Conference }, { slug: string }> = async ({ params }) => {
-  const conference = await getConferenceBySlug(params.slug)
+export const getStaticProps: GetStaticProps<{ conference: IConference }, { slug: string }> = async ({ params }) => {
+  const connection = await ensureConnection();
+  const repository = await connection.getRepository(Conference);
+  const conference: Conference = await repository.findOne({ slug: params.slug });
   return {
     props: {
-      conference
+      conference: conference.toJSON()
     }
   }
 }

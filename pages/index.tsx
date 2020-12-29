@@ -2,11 +2,12 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import ConferencePreview from '../components/ConferencePreview'
 import Layout from '../components/Layout'
-import { getConferences } from '../data/conferences'
-import { Conference } from '../types/Conference'
+import { ensureConnection } from "../data/Database";
+import { Conference } from '../data/entities/Conferences'
+import { IConference } from '../types/Conference'
 
 export interface HomeProps {
-  conferences: Conference[]
+  conferences: IConference[]
 }
 
 export default function Home({ conferences }: HomeProps) {
@@ -27,10 +28,12 @@ export default function Home({ conferences }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const conferences = await getConferences();
+  const connection = await ensureConnection();
+  const repository = await connection.getRepository(Conference);
+  const conferences: Conference[] = await repository.find();
   return {
     props: {
-      conferences
+      conferences: conferences.map(conference => conference.toJSON())
     }
   }
 }
