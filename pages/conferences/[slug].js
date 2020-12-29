@@ -14,22 +14,28 @@ export default function ConferenceIndex({ conference }) {
         <title>{conference.name}</title>
       </Head>
 
-      <section className={"my-10 flex items-start"}>
-        <article className={"mr-4"}>
+      <section className={"my-10"}>
+        <article>
           <h1 className={"text-4xl my-4 font-serif"}>{conference.name}</h1>
           <Date dateString={conference.date} />
-          {conference.shortDescription}
+          
+          <div className={"flex md:flex-row sm:flex-col-reverse items-start"}>
+            <p className={"my-4 mr-4"}>
+              {conference.shortDescription}
+
+              <Link href={"/"}>
+                <a className={"block my-4 text-sm text-blue-600"}>
+                  <FontAwesomeIcon icon={faChevronLeft} className={"inline-block mr-4 w-2"} />
+                  Назад к списку
+                </a>
+              </Link>
+            </p>
+
+            <ConferenceMembership slug={conference.slug} />
+          </div>
+          
         </article>
-
-        <ConferenceMembership slug={conference.slug} />
       </section>
-
-      <Link href={"/"}>
-        <a className={"text-blue-600"}>
-          <FontAwesomeIcon icon={faChevronLeft} className={"inline-block mr-4 w-2"} />
-          Назад к списку
-        </a>
-      </Link>
     </Layout>
   )
 }

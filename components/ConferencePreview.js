@@ -20,7 +20,7 @@ export default function ConferencePreview({ conference: { slug, name, date, shor
 
       <div className={"my-1"}>
         <Link href={`/conferences/${slug}`}>
-          <a className={"text-blue-600 align-middle"} href={`/conferences/${slug}`}>
+          <a className={"text-blue-600 align-middle text-sm"} href={`/conferences/${slug}`}>
             Подробнее
             <FontAwesomeIcon icon={faChevronRight} className={"inline-block ml-2 w-2"} />
           </a>
