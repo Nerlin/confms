@@ -1,13 +1,19 @@
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import ConferenceMembership from "../../components/ConferenceMembership";
 import Date from "../../components/Date";
 import Layout from "../../components/Layout";
 import { getConferenceBySlug, getConferences } from "../../data/conferences";
+import { Conference } from "../../types/Conference";
 
-export default function ConferenceIndex({ conference }) {
+interface ConferenceIndexProps {
+  conference: Conference
+}
+
+export default function ConferenceIndex({ conference }: ConferenceIndexProps) {
   return (
     <Layout>
       <Head>
@@ -40,7 +46,7 @@ export default function ConferenceIndex({ conference }) {
   )
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const conferences = await getConferences()
   return {
     paths: conferences.map(conference => {
@@ -52,7 +58,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps<{ conference: Conference }, { slug: string }> = async ({ params }) => {
   const conference = await getConferenceBySlug(params.slug)
   return {
     props: {

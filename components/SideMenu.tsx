@@ -1,4 +1,9 @@
-export default function SideMenu({ header = "", children }) {
+export interface SideMenuProps {
+  header?: string;
+  children?: React.ReactNode;
+}
+
+export default function SideMenu({ header = "", children }: SideMenuProps) {
   return (
     <aside className={"bg-white sm:ml-0 md:ml-auto mt-4 min-w-max"}>
       <header>

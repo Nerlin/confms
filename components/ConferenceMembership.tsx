@@ -2,7 +2,11 @@ import { faFileArchive, faInfo } from "@fortawesome/free-solid-svg-icons";
 import MenuItem from "./MenuItem";
 import SideMenu from "./SideMenu";
 
-export default function ConferenceMembership({ slug }) {
+export interface ConferenceMembershipProps {
+  slug: string
+}
+
+export default function ConferenceMembership({ slug }: ConferenceMembershipProps) {
   return (
     <SideMenu>
       <MenuItem icon={faInfo} href={`/conferences/${slug}`}>
@@ -12,5 +16,5 @@ export default function ConferenceMembership({ slug }) {
         Материалы
       </MenuItem>
     </SideMenu>
-  )
+  );
 }

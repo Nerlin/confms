@@ -1,9 +1,15 @@
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import ConferencePreview from '../components/ConferencePreview'
 import Layout from '../components/Layout'
 import { getConferences } from '../data/conferences'
+import { Conference } from '../types/Conference'
 
-export default function Home({ conferences }) {
+export interface HomeProps {
+  conferences: Conference[]
+}
+
+export default function Home({ conferences }: HomeProps) {
   return (
     <Layout>
       <Head>
@@ -20,7 +26,7 @@ export default function Home({ conferences }) {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const conferences = await getConferences();
   return {
     props: {

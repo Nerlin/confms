@@ -1,4 +1,6 @@
-const conferences = [
+import { Conference } from "../types/Conference";
+
+const conferences: Conference[] = [
   {
     "id": 1,
     "slug": "first-ru-conf",
@@ -15,11 +17,11 @@ const conferences = [
   }
 ]
 
-export async function getConferences() {
+export async function getConferences(): Promise<Conference[]> {
   return conferences;
 }
 
-export async function getConferenceBySlug(slug) {
+export async function getConferenceBySlug(slug: string): Promise<Conference> {
   const conference = conferences.find(conference => conference.slug === slug);
   return conference;
 }

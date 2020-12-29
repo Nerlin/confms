@@ -1,4 +1,16 @@
-export default function Button({ kind = "default", ...props }) {
+import { type } from "os"
+
+export interface ButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
+  kind: ButtonKind;
+}
+
+export type ButtonKind = "default" | "attention" | "danger";
+
+export default function Button({ kind = "default", ...props }: ButtonProps) {
   const background = backgrounds[kind]
   const color = colors[kind]
   const border = borders[kind]
