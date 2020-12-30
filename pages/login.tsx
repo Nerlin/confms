@@ -10,24 +10,22 @@ import Label from "../components/Label";
 import useInput from "../hooks/useInput";
 import useSubmit from "../hooks/useSubmit";
 
-export default function Register() {
+export default function LogIn({ csrfToken }) {
   const router = useRouter();
   const [email, changeEmail] = useInput("");
   const [password, changePassword] = useInput("");
-  const [firstName, changeFirstName] = useInput("");
-  const [lastName, changeLastName] = useInput("");
 
   const { submit, error } = useSubmit(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/users/register`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/session/login`, {
         method: "POST",
-        body: JSON.stringify({ email, password, firstName, lastName }),
+        body: JSON.stringify({ email, password }),
         credentials: "same-origin"
       });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         await router.push("/");
       } else {
         const message = await response.text();
@@ -38,39 +36,36 @@ export default function Register() {
 
   return (
     <FormLayout>
-      <Form
-        method={"post"}
-        action={`${process.env.NEXT_PUBLIC_API_HOST}/api/users/register`}
-        onSubmit={submit}
-      >
-        <h1 className={"font-serif text-3xl mb-8"}>
-          Конф.ру - Зарегистрироваться
-        </h1>
+      <Form method={"post"} action={`${process.env.NEXT_PUBLIC_API_HOST}/api/session/login`} onSubmit={submit}>
+        <h1 className={"font-serif text-3xl mb-8"}>Конф.ру - Войти</h1>
 
         {error && <div>{error}</div>}
 
+        <Input type={"hidden"} name={"csrfToken"} defaultValue={csrfToken} />
+
         <Label>
           Email
-          <Input type={"email"} name={"email"} placeholder={"test@email.com"} value={email} onChange={changeEmail} />
+          <Input
+            type={"email"}
+            name={"email"}
+            placeholder={"test@email.com"}
+            value={email}
+            onChange={changeEmail}
+          />
         </Label>
 
         <Label>
           Пароль
-          <Input type={"password"} name={"password"} value={password} onChange={changePassword} />
-        </Label>
-
-        <Label>
-          Имя
-          <Input name={"firstName"} value={firstName} onChange={changeFirstName} />
-        </Label>
-
-        <Label>
-          Фамилия
-          <Input name={"lastName"} value={lastName} onChange={changeLastName} />
+          <Input
+            type={"password"}
+            name={"password"}
+            value={password}
+            onChange={changePassword}
+          />
         </Label>
 
         <ButtonGroup direction={"col"}>
-          <Button kind={"attention"}>Зарегистрироваться</Button>
+          <Button kind={"attention"}>Войти</Button>
 
           <Link href={"/"}>
             <a

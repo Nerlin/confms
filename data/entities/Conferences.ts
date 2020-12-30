@@ -1,24 +1,26 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { EntitySchema } from "typeorm";
 import { IConference } from "../../types/Conference";
 
-@Entity()
-export class Conference implements IConference {
-  @PrimaryGeneratedColumn()
-  id: number
-
-  @Column({ unique: true })
-  slug: string
-
-  @Column()
-  name: string
-
-  @Column()
-  shortDescription: string
-
-  @Column()
-  date: string
-
-  public toJSON(): IConference {
-    return { ...this };
+export const ConferenceSchema = new EntitySchema<IConference>({
+  name: "conference",
+  columns: {
+    id: {
+      type: Number,
+      primary: true,
+      generated: true,
+    },
+    slug: {
+      type: String,
+      unique: true,
+    },
+    name: {
+      type: String,
+    },
+    date: {
+      type: String,
+    },
+    shortDescription: {
+      type: String
+    }
   }
-}
+})
